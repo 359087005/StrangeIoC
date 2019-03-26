@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrangeIoC", "StrangeIoC.csproj", "{7A0F9984-58B4-3790-9CC1-D06883114B0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrangeIoC.Editor", "StrangeIoC.Editor.csproj", "{BE6A39CA-D9E5-D3C2-1E08-A9CAA8153D27}"
