@@ -19,6 +19,9 @@ public class CubeMediator : Mediator
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]  //全局的派发器
     public IEventDispatcher dispatcher { get; set; }
 
+   
+
+
     public override void OnRegister()
     {
         Debug.Log("CubeMediator OnRegister");

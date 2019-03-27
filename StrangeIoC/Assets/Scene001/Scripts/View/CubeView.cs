@@ -12,6 +12,8 @@ public class CubeView : View
 {
     [Inject]
     public IEventDispatcher dispatcher { get; set; }
+    [Inject]
+    public AudioManager audioManager { get; set; }
 
     private Text scoreText;
 
@@ -29,6 +31,7 @@ public class CubeView : View
     {
         //加分
         Debug.Log("OnMouseDown");
+        audioManager.Play("hit");
         dispatcher.Dispatch(Demo1MediatorEvent.ClickDown);
     }
 

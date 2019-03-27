@@ -10,7 +10,7 @@ public class MyAudioEditor : EditorWindow
 
     private void Awake()
     {
-        savePath = Application.dataPath + "\\Audio\\Resources\\AudioList.txt";
+        //savePath = Application.dataPath + "\\Audio\\Resources\\AudioList.txt";
 
         Debug.Log(Application.dataPath);
 
@@ -49,13 +49,13 @@ public class MyAudioEditor : EditorWindow
 
         if (GUILayout.Button("添加音效"))
         {
-            //object o = (Resources.Load(_path));
-            //if (o == null)
-            //{
-            //    Debug.LogError("音效不存在:" + _path);
-            //    _path = "";
-            //    return;
-            //}
+            object o = (Resources.Load(_path));
+            if (o == null)
+            {
+                Debug.LogError("音效不存在:" + _path);
+                _path = "";
+                return;
+            }
             if (audioDic.ContainsKey(_name))
             {
                 Debug.LogWarning("音效已存在..." + _name);
@@ -65,6 +65,43 @@ public class MyAudioEditor : EditorWindow
             SaveAudioList();
         }
         AssetDatabase.Refresh();
+    }
+    /// <summary>
+    /// 每秒调用10次
+    /// </summary>
+    private void OnInspectorUpdate()
+    {
+        LoadAudioList();
+    }
+    /// <summary>
+    /// 只要场景层级改变时调用
+    /// </summary>
+    private void OnHierarchyChange()
+    {
+    }
+    /// <summary>
+    /// 只要项目被改变时调用
+    /// </summary>
+    private void OnProjectChange()
+    {
+    }
+    /// <summary>
+    /// 当选择的物体发生改变
+    /// </summary>
+    private void OnSelectionChange()
+    {
+    }
+    /// <summary>
+    /// 当窗口获得键盘焦点时调用
+    /// </summary>
+    private void OnFocus()
+    {
+    }
+    /// <summary>
+    /// 当窗口失去键盘焦点时调用
+    /// </summary>
+    private void OnLostFocus()
+    {
     }
     /// <summary>
     /// 添加成功之后在最上方显示的信息菜单
@@ -98,6 +135,7 @@ public class MyAudioEditor : EditorWindow
             if (GUILayout.Button("删除", GUILayout.Width(100)))
             {
                 DeleteAudioInfo(key);
+                SaveAudioList();
                 return;
                 //TODO
             }
@@ -113,9 +151,7 @@ public class MyAudioEditor : EditorWindow
         }
     }
 
-
-    private string savePath = "";
-
+    //private string savePath = "";
 
     /// <summary>
     /// 音效列表信息保存
@@ -131,16 +167,15 @@ public class MyAudioEditor : EditorWindow
             sb.Append(key + ","+value + "\n");
         }
        
-        File.WriteAllText(savePath, sb.ToString());
+        File.WriteAllText(AudioManager.AudioPath, sb.ToString());
     }
-
 
     private void LoadAudioList()
     {
-        if (!File.Exists(savePath))
+        if (!File.Exists(AudioManager.AudioPath))
             return;
         audioDic = new Dictionary<string, string>();
-        string[] allLines = File.ReadAllLines(savePath);
+        string[] allLines = File.ReadAllLines(AudioManager.AudioPath);
 
         foreach (string line in allLines)
         {
